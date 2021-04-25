@@ -1,0 +1,56 @@
+# Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Aufruf:   i.a. bereits eingestellt:   $env:SCAFFOLD_PROFILE = 'dev'
+#           $env:TAG = '1.0.0'
+#           skaffold dev --port-forward
+
+# https://skaffold.dev/docs/references/yaml
+
+apiVersion: skaffold/v2beta13
+kind: Config
+metadata:
+  name: rezept
+# https://skaffold.dev/docs/pipeline-stages/builders
+build:
+  # https://skaffold.dev/docs/pipeline-stages/taggers
+  tagPolicy:
+    envTemplate:
+      template: "{{.TAG}}"
+  artifacts:
+  - image: docker.io/juergenzimmermann/rezept
+    # https://skaffold.dev/docs/pipeline-stages/builders/docker
+  local: {}
+deploy:
+  # https://skaffold.dev/docs/pipeline-stages/deployers/kustomize
+  kustomize:
+    paths:
+      - kustomize\prod
+# https://skaffold.dev/docs/environment/profiles
+profiles:
+  - name: dev
+    activation:
+      - env: SCAFFOLD_PROFILE=dev
+    deploy:
+      kustomize:
+        paths:
+          - kustomize\dev
+        flags:
+          disableValidation: true
+    # https://skaffold.dev/docs/pipeline-stages/port-forwarding
+    portForward:
+      - resourceType: service
+        resourceName: rezept
+        port: 3000

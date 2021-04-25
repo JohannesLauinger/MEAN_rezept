@@ -1,0 +1,112 @@
+:revealjsdir: ../../node_modules/reveal.js
+:revealjs_slideNumber: true
+:sectnums:
+
+// Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+// https://asciidoctor.org/docs/asciidoctor-revealjs
+
+= Beispiel mit MEAN, REST, GraphQL, Mongoose, JWT und Jest
+
+Jürgen Zimmermann <Juergen.Zimmermann@HS-Karlsruhe.de>
+
+== Gliederung
+
+* Node
+* Express und REST
+* GraphQL
+* Mongoose
+* JWT
+* Jest usw.
+
+== Node
+
+* Infrastruktur
+* Entwicklungsumgebung
+* Programmierung
+* Dokumentation
+
+=== Infrastruktur
+
+* package.json
+* node_modules
+* npm
+* nodemon
+* ts-node
+* Heroku und Buildpack
+* Jenkins und Docker
+
+=== Entwicklungsumgebung
+
+* VS Code
+* ESLint und SonarQube
+* Prettier
+* RESTclient, auch für GraphQL
+
+=== Programmierung
+
+* Server einschl. Listener
+* ES 2015+
+* TypeScript
+
+=== Dokumentation
+
+* AsciiDoctor mit PlantUML
+* reveal.js
+* _TODO: Jekyll_
+
+== Express und REST
+
+* Router
+* Handler
+
+== GraphQL und Apollo Server
+
+* typeDefs und gql
+* resolver
+
+== Mongoose
+
+* Pattern _Active Record_
+* Document
+* JSON
+* GridFS
+
+== JWT
+
+* Private und Public Key
+* Header
+* Payload
+* Signature
+
+=== Header
+
+* alg
+* typ
+
+=== Payload
+
+* iat
+* exp
+* iss
+
+== Jest usw.
+
+* Jest
+* ts-jest
+* Chai
+* fetch
+* Istanbul

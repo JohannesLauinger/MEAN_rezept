@@ -1,0 +1,77 @@
+### Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+###
+### This program is free software: you can redistribute it and/or modify
+### it under the terms of the GNU General Public License as published by
+### the Free Software Foundation, either version 3 of the License, or
+### (at your option) any later version.
+###
+### This program is distributed in the hope that it will be useful,
+### but WITHOUT ANY WARRANTY; without even the implied warranty of
+### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+### GNU General Public License for more details.
+###
+### You should have received a copy of the GNU General Public License
+### along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+###
+### N e t z w e r k   -  V e r b i n d u n g   n o t w e n d i g
+###
+
+@url = https://localhost:3000/graphql
+#@url = https://gener-iert-12345.herokuapp.com/graphql
+
+### Neues rezept anlegen
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  createRezept(
+    name: "Test"
+    schwierigkeit: 1
+    art: "HAUPTMAHLZEIT"
+    koch: "JOHANN_LAFER"
+    preis: 11.1
+    schaerfe: 0.011
+    verfuegbar: true
+    datum: null
+    hinweis: "3-89722-583-2"
+    homepage: "http://acme.com"
+    zutaten: ["JAVASCRIPT"]
+  )
+}
+
+### Vorhandenes rezept aktualisieren
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  updateRezept(
+    _id: "00000000-0000-0000-0000-000000000003",
+    name: "Geaendert",
+    schwierigkeit: 5,
+    art: "SNACK",
+    koch: "JOHANN_LAFER",
+    preis: 99.99,
+    schaerfe: 0.099,
+    verfuegbar: false,
+    datum: "2018-01-31",
+    hinweis: "3-8273-1552-2",
+    homepage: "https://acme.com",
+    zutaten: [
+      "JAVASCRIPT",
+      "TYPESCRIPT"
+    ],
+    version: 1
+  )
+}
+
+### Vorhandenes rezept loeschen
+POST {{url}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  deleteRezept(id: "00000000-0000-0000-0000-000000000004")
+}

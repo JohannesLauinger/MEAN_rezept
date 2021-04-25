@@ -1,0 +1,65 @@
+# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# #it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: acme
+
+configMapGenerator:
+  - name: mongodb-env
+    literals:
+      - TZ=Europe/Berlin
+  - name: mailserver-env
+    literals:
+      - TZ=Europe/Berlin
+      - SPRING_OUTPUT_ANSI_ENABLED=NEVER
+      - SPRING_MAIN_BANNER-MODE=CONSOLE
+      - SPRING_LAZY-INITIALIZATION="true"
+      - SPRING_JPA_OPEN-IN-VIEW="true"
+
+# https://github.com/kubernetes-sigs/kustomize/blob/master/examples/secretGeneratorPlugin.md
+# Caveat: Codierung (encoding) vs. Verschluesselung (encryption)
+# kubectl get secret mongodb --output jsonpath='{.data}' --namespace acme
+# https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data
+# https://github.com/godaddy/kubernetes-external-secrets
+# KMS-Plugins (KMS = Key Management System) fuer AWS, Azure, Google Cloud, ...
+secretGenerator:
+  - name: mongodb
+    literals:
+      - password=Change Me!
+
+# wegen "secretKeyRef" in deployment.yaml des separaten Microservice
+generatorOptions:
+  disableNameSuffixHash: true
+
+commonLabels:
+  # https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels
+  # https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
+  app.kubernetes.io/component: backend
+  app.kubernetes.io/managed-by: kustomize
+
+# Reihenfolge fuer die Installation der Kubernetes Ressourcen
+# https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/#composing-and-customizing-resources
+resources:
+  - mongodb/persistent-volume.yaml
+  - mongodb/serviceaccount.yaml
+  - mongodb/statefulset.yaml
+  - mongodb/service.yaml
+  - mailserver/serviceaccount.yaml
+  - mailserver/deployment.yaml
+  - mailserver/service.yaml
+  - resource-quota.yaml

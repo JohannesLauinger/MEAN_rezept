@@ -1,0 +1,19 @@
+{
+  "name": "Test",
+  "schwierigkeit": 1,
+  "art": "HAUPTMAHLZEIT",
+  "koch": "JOHANN_LAFER",
+  "preis": 99.9,
+  "schaerfe": 1,
+  "verfuegbar": true,
+  "datum": "2020-02-01T00:00:00.000Z",
+  "hinweis": "978-3897225831",
+  "homepage": "https://test.de/",
+  "zutaten": ["JAVASCRIPT", "TYPESCRIPT"],
+  "gewuerze": [
+    {
+      "vorname": "Theo",
+      "nachname": "Test"
+    }
+  ]
+}

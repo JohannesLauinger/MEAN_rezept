@@ -1,0 +1,68 @@
+### Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+###
+### This program is free software: you can redistribute it and/or modify
+### it under the terms of the GNU General Public License as published by
+### the Free Software Foundation, either version 3 of the License, or
+### (at your option) any later version.
+###
+### This program is distributed in the hope that it will be useful,
+### but WITHOUT ANY WARRANTY; without even the implied warranty of
+### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+### GNU General Public License for more details.
+###
+### You should have received a copy of the GNU General Public License
+### along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+###
+### N e t z w e r k   -  V e r b i n d u n g   n o t w e n d i g
+###
+
+@host = localhost:3000/api
+#@host = gener-iert-12345.herokuapp.com/api
+
+### Login
+# @name login
+POST https://{{host}}/login
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=p
+
+### Bild zu einem vorhandenen rezept runterladen (Webbrowser fuer Video benutzen)
+https://{{host}}/rezepte/00000000-0000-0000-0000-000000000003/file
+Authorization: Bearer {{login.response.body.$.token}}
+
+### Keine Datei zu einem vorhandenen rezept
+https://{{host}}/rezepte/00000000-0000-0000-0000-000000000002/file
+Authorization: Bearer {{login.response.body.$.token}}
+
+### Keine Datei zu einem nicht-vorhandenen rezept
+https://{{host}}/rezepte/00000000-0000-0000-0000-000000000099/file
+Authorization: Bearer {{login.response.body.$.token}}
+
+### PNG-Bild zu einem vorhandenen rezept hochladen
+PUT https://{{host}}/rezepte/00000000-0000-0000-0000-000000000003/file
+Content-Type: image/png
+Authorization: Bearer {{login.response.body.$.token}}
+
+< .\files\image.png
+
+### JPEG-Bild zu einem vorhandenen rezept hochladen
+PUT https://{{host}}/rezepte/00000000-0000-0000-0000-000000000003/file
+Content-Type: image/jpeg
+Authorization: Bearer {{login.response.body.$.token}}
+
+< .\files\image.jpg
+
+### BMP-Bild zu einem vorhandenen rezept hochladen
+PUT https://{{host}}/rezepte/00000000-0000-0000-0000-000000000003/file
+Content-Type: image/bmp
+Authorization: Bearer {{login.response.body.$.token}}
+
+< .\files\image.bmp
+
+### MP4-Video zu einem vorhandenen rezept hochladen
+PUT https://{{host}}/rezepte/00000000-0000-0000-0000-000000000003/file
+Content-Type: video/mp4
+Authorization: Bearer {{login.response.body.$.token}}
+
+< .\files\video.mp4

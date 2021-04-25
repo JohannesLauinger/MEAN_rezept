@@ -1,0 +1,12 @@
+{
+  "name": "?!",
+  "schwierigkeit": 2,
+  "art": "UNSICHTBAR",
+  "koch": "NO_VERLAG",
+  "preis": -1,
+  "schaerfe": 0,
+  "verfuegbar": true,
+  "datum": "12345-123-123",
+  "hinweis": "falsche-hinweis",
+  "homepage": "anyHomepage"
+}

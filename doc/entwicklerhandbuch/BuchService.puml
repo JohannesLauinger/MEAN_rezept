@@ -1,0 +1,60 @@
+' Copyright (C) 2019 - present Juergen Zimmermann, Hochschule Karlsruhe
+'
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+@startuml Anwendungskern
+
+!pragma useNewPackage
+skinparam classAttributeIconSize 0
+skinparam componentStyle uml2
+
+interface Promise<T>
+
+package shared {
+  class "sendMail()" as sendMail
+  hide sendMail circle
+}
+
+package rezept {
+  package entity {
+    class RezeptModel
+    hide RezeptModel circle
+
+    class "validateRezept()" as validateRezept
+    hide validateRezept circle
+
+    interface RezeptData <<entity>>
+  }
+
+  package service #DDDDDD {
+    RezeptService ..> Promise
+    RezeptService ..> RezeptModel
+    RezeptService ..> RezeptData
+    RezeptService ..> validateRezept
+    RezeptService ..> sendMail
+
+    class RezeptService << control >> {
+      + async findById(id: string): Promise<RezeptData | undefined>
+      + async find(query?: any): Promise<Array<RezeptData>>
+      + async create(rezept: RezeptData): Promise<RezeptData>
+      + async update(rezept: RezeptData, version: string): Promise<RezeptData>
+      + async delete(id: string): Promise<boolean>
+    }
+  }
+}
+
+hide empty members
+
+footer (c) Jürgen Zimmermann
+
+@enduml

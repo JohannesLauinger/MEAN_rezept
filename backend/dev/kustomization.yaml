@@ -1,0 +1,47 @@
+# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# #it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Aufruf:   cd backend\dev
+#             kustomize build | kubectl apply -f -
+#             kustomize build | kubectl delete -f -
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/#bases-and-overlays
+resources:
+  - ../base
+
+configMapGenerator:
+  - name: mongodb-env
+    behavior: merge
+    literals:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+  - name: mailserver-env
+    behavior: merge
+    literals:
+      - SPRING_MAIN_BANNER-MODE=LOG
+      - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
+
+secretGenerator:
+  - name: mongodb
+    behavior: merge
+    literals:
+      - password=p
+
+# https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/#kustomize-feature-list
+commonLabels:
+  env: dev

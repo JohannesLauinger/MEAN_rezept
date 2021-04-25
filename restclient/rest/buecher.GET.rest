@@ -1,0 +1,71 @@
+### Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+###
+### This program is free software: you can redistribute it and/or modify
+### it under the terms of the GNU General Public License as published by
+### the Free Software Foundation, either version 3 of the License, or
+### (at your option) any later version.
+###
+### This program is distributed in the hope that it will be useful,
+### but WITHOUT ANY WARRANTY; without even the implied warranty of
+### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+### GNU General Public License for more details.
+###
+### You should have received a copy of the GNU General Public License
+### along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+###
+### N e t z w e r k   -  V e r b i n d u n g   n o t w e n d i g
+###
+
+@host = localhost:3000/api/rezepte
+#@host = gener-iert-12345.herokuapp.com/api/rezepte
+
+### Suche alle Rezepte
+https://{{host}}
+
+### Suche mit vorhandener rezept-ID
+https://{{host}}/00000000-0000-0000-0000-000000000001
+
+### Suche mit vorhandener rezept-ID und Versionsnummer
+https://{{host}}/00000000-0000-0000-0000-000000000001
+If-None-Match: "0"
+
+### Suche mit vorhandener rezept-ID und falscher Versionsnummer
+https://{{host}}/00000000-0000-0000-0000-000000000001
+If-None-Match: 0
+
+### Suche mit ungueltiger rezept-ID
+https://{{host}}/YYYYYYYY-YYYY-YYYY-YYYY-YYYYYYYYYYYY
+
+### Suche mit nicht-vorhandener rezept-ID
+https://{{host}}/99999999-9999-9999-9999-999999999999
+
+### Suche mit vorhandenem Name
+https://{{host}}?name=a
+
+### Suche mit nicht-vorhandenem Name
+https://{{host}}?name=xxx
+
+### Suche mit vorhandener ISBN
+https://{{host}}?hinweis=978-3897225831
+
+### Suche mit vorhandenen Zutatenn
+https://{{host}}?javascript=true&typescript=true
+
+### Suche mit vorhandenem Schlagwort "JAVASCRIPT"
+https://{{host}}?javascript=true
+
+### Suche mit vorhandenem Schlagwort "TYPESCRIPT"
+https://{{host}}?typescript=true
+
+### Suche mit gueltiger Rezeptart
+https://{{host}}?art=HAUPTMAHLZEIT
+
+### Suche mit gueltigem Schwierigkeit
+https://{{host}}?schwierigkeit=1
+
+### Suche verfuegbare Rezepte
+https://{{host}}?verfuegbar=true
+
+### Optionen zu rezept-ID
+OPTIONS https://{{host}}/00000000-0000-0000-0000-000000000001

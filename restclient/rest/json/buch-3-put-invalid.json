@@ -1,0 +1,14 @@
+{
+  "_id": "00000000-0000-0000-0000-000000000003",
+  "name": "?!",
+  "schwierigkeit": 5,
+  "art": "HAUPTMAHLZEIT",
+  "koch": "IWI_VERLAG",
+  "preis": 9999,
+  "schaerfe": 99,
+  "verfuegbar": true,
+  "datum": "12345-123-123",
+  "hinweis": "falsche-hinweis",
+  "homepage": "anyHomepage",
+  "zutaten": ["JAVASCRIPT"]
+}

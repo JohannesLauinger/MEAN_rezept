@@ -1,0 +1,83 @@
+# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailserver
+  labels:
+    app: mailserver
+spec:
+  selector:
+    matchLabels:
+      app: mailserver
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mailserver
+    spec:
+      serviceAccountName: acme-mailserver
+      containers:
+        # Images mit einem Mailserver: analogic/poste.io und axigen/axigen
+        - image: docker.io/gessnerfl/fake-smtp-server:1.7.1
+          name: mailserver
+          envFrom:
+            - configMapRef:
+                name: mailserver-env
+          ports:
+            - containerPort: 5025
+              name: smtp
+            - containerPort: 5080
+              name: http
+            - containerPort: 5081
+              name: actuator
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              #cpu: 400m
+              memory: 256Mi
+              #memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: actuator
+            initialDelaySeconds: 120
+            timeoutSeconds: 20
+            periodSeconds: 120
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: actuator
+            initialDelaySeconds: 120
+            timeoutSeconds: 20
+            periodSeconds: 120
+            failureThreshold: 2
+          volumeMounts:
+            - mountPath: /tmp
+              name: log-mailserver
+      volumes:
+        - name: log-mailserver
+          hostPath:
+            path: /run/desktop/mnt/host/c/Zimmermann/volumes/fakesmtp
+            type: Directory

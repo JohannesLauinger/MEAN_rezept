@@ -1,0 +1,33 @@
+# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mailserver
+  labels:
+    app: mailserver
+spec:
+  selector:
+    app: mailserver
+  ports:
+    # https://istio.io/latest/docs/reference/config/analysis/ist0118
+    - name: tcp-smtp
+      port: 5025
+    - name: http
+      port: 5080
+    - name: actuator
+      port: 5081

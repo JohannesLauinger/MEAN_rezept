@@ -1,0 +1,39 @@
+# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# #it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+---
+# https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes
+# Ein "Persistent Volume" ist "cluster-scoped" und nicht einem Namespace zugeordnet
+# https://kubernetes.io/blog/2018/04/13/local-persistent-volumes-beta :
+# most applications should continue to use highly available, remotely accessible, durable storage
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-volume
+  labels:
+    app: data
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes: ["ReadWriteOnce"]
+  # https://kubernetes.io/docs/concepts/storage/storage-classes
+  # TODO bei "hostpath" wird der Pfad fuer Windows nicht verwendet
+  # https://github.com/docker/for-win/issues/5325#issuecomment-632309842
+  # https://github.com/docker/for-win/issues/7023
+  storageClassName: manual
+  # https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
+  hostPath:
+    path: /run/desktop/mnt/host/c/Zimmermann/volumes/mongodb-standalone-4.4/db
+    type: Directory

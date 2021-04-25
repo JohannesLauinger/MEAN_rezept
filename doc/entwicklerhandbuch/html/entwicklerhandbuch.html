@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.12">
+<meta name="author" content="Jürgen Zimmermann">
+<title>Entwicklerhandbuch</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="./asciidoctor.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>Entwicklerhandbuch</h1>
+<div class="details">
+<span id="author" class="author">Jürgen Zimmermann</span><br>
+<span id="email" class="email"><a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">Juergen.Zimmermann@HS-Karlsruhe.de</a></span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_der_applikationsserver">1. Der Applikationsserver</a>
+<ul class="sectlevel2">
+<li><a href="#_der_applikationsserver_im_überblick">1.1. Der Applikationsserver im Überblick</a></li>
+<li><a href="#_die_rest_schnittstelle">1.2. Die REST-Schnittstelle</a></li>
+<li><a href="#_der_anwendungskern">1.3. Der Anwendungskern</a></li>
+<li><a href="#_interface_für_entities_und_das_mongoose_model">1.4. Interface für Entities und das Mongoose-Model</a></li>
+</ul>
+</li>
+<li><a href="#_programmierrichtlinien_für_typescript_und_javascript">2. Programmierrichtlinien für TypeScript und JavaScript</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Copyright &#169; 2020 - present Jürgen Zimmermann, Hochschule Karlsruhe.<br>
+           Free use of this software is granted under the terms of the
+           GNU General Public License (GPL) v3.<br>
+           For the full text of the license, see the <a href="http://www.gnu.org/licenses/gpl-3.0.html">license</a> file.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_der_applikationsserver"><a class="anchor" href="#_der_applikationsserver"></a><a class="link" href="#_der_applikationsserver">1. Der Applikationsserver</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_der_applikationsserver_im_überblick"><a class="anchor" href="#_der_applikationsserver_im_überblick"></a><a class="link" href="#_der_applikationsserver_im_überblick">1.1. Der Applikationsserver im Überblick</a></h3>
+<div class="paragraph">
+<p>bla bla</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="https://kroki.io/plantuml/svg/eNqFlMFu2kAQhu9-iv8WkAi06alpFcmhISFNARmjiN4We2yvst61dtcgFPVt-gw99ZYX6ywQpYpI64Nle2b-_f6dWZ9gaJqtlWXl0Rl2cfbu_UecorHkSHvctmRL0vgu65psLbTu4cZklcuqVhG-CqucbSuKTqITpJV0XGlKK2rwY2GJ4EzhN8LSObamRSY0LOXSeStXrSdID6HzgbGoTS6LLcvwp1bnZOErgudVHUyxe7meLHBNmqxQmLUrJTPcyYy0IwheOXxxFeVYBZlQMAoE8wMBRoZ1hZeGTZDkuMWarON3fHhe4qDXg7Gs0RE-YFuYJpR1mXULJfxLZf-o8xeDOaTeCVemYTcVC7K_jVQKK0LrqGhVjxU4F_fj9Ga6SBFPlriPkySepMtPnOsrw1Fa015J1o2SLMyerNB-y-gs8O0qGd5wRXw5vhunS-bHaJxOruZzjKYJYsziJB0PF3dxgtkimU3nV31gTgGK2_evvS123eENzMkLqdze85Lb6ZhM5ajEmritGck1cwlkPFL_7xlrCGV0uXPIuS9byGDjAtr4HhwDfq68b9z5YLDZbPqlbvvGlgO1F3GDi34UKSo8vMF-jnPJLKFfkXuQuhGhKY3IHkRJc79VO1T_VywzdWM0j_s-2tbqLIpE5tn2tXD-8BjntdRRFGqFLjnvIUwpHiPwFfJwenqBzmWbVXB8I919FfrCgyPBY9dqniAl8ueUnfQb5a9jQisq3wo-_QwH542gevrljuoeuPhYH2c6yv0jigpjwknoZF3cPv1-9Z-I_gC87nBN" alt="Use Cases">
+</div>
+<div class="title">Figure 1. Use Cases</div>
+</div>
+<div class="paragraph">
+<p>bla bla</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="https://kroki.io/plantuml/svg/eNqFVcFuGjEQvfsrRrkEpATa9NS0ikQIJLQJiXaJojTlYHZnWTdeG9leKKqaL-utP9bxLstCSNILwuM3b97MG8M-dPVsacQ0ddDoNuHo3fuPcAgzgxaVgy85mikq-CayDE3GlTqACx2lNkpzifCVG2lNniLbZ_swSoWlTD01PAP6mhhEsDpxC27wGJY6h4grMBgL64yY5A5BOOAqbmsDmY5FsiQaCuUqRgMuRXBU1YJOisP58BbOUaHhEm7yiRQRXIoIlUXgVNlHbIoxTDyNT-h7BeFKAfQ18XInNDWBgu4NzNFYOsOHqsSK7wC0IY4Gd162AT3zaU3SugTJXZ3ZerHzusEYhCqIUz2jblIipP4WQkqYIOQWk1weEANh4W4wuri-HUFneA93nSDoDEf3nwjrUk23OMeSSWQzKYiYejJcuSVJJ4KrXtC9oIzO6eByMLon_dAfjIa9MIT-dQAduOkEo0H39rITwM1tcHMd9loAIXpRZN9bs00Kd2iAMToupC17vic7LSmTMaR8jmRrhGJOujhEtFL_94w4uNRqWnRI2HqEJGyQgNLuACwJ_Jw6N7PH7fZisWhNVd7SZtqWJYltn7QYs49CzbgffqSzmVa0uqFb0oLmmTxiTGLiwGko1zwWJNXbyRiPHPUW9MJRl0aqHGNKxwh7_Vw9egRNPCO7ej_9e7B78IsBTIotMksIyBU0FHm4oBWWtBOUVhDbMftdUX2V3NJTgjboyQ98pHq-kEDjSrqH0zxKVwTj6twXEtexKhiimVPTW6B1jOo9UJn4igxqNMf-PVRHxnxB2hOfdEWiKBJJncdFfSK7IhO0tiXLzs3Z6Xc1pFdDFp8Z-jS7MN9pRpVWd_TG-ITT4uzxKENoFPxnp829Ct_VUpYWFJrGZfTciLgf1qOrNPiVozZX5Kx2C56eTuChtGHMqi_Qap28aMkLsRK75cCbqG1fthLh8PDkmU87KTVmy7utrLpYYdUGy6sItnEoZ1I7upu9Brxg7HqFVrBNY2vS8m7HxFdIS3Rl7rNmi4Gsi7LNgiuhG-6zRGv_09uImvDl759nf0zsH1PpS7k=" alt="Komponentendiagramm">
+</div>
+<div class="title">Figure 2. Komponentendiagramm</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_die_rest_schnittstelle"><a class="anchor" href="#_die_rest_schnittstelle"></a><a class="link" href="#_die_rest_schnittstelle">1.2. Die REST-Schnittstelle</a></h3>
+<div class="paragraph">
+<p>bla bla</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="https://kroki.io/plantuml/svg/eNrtVt9z4jYQftdfsaUPgSmBu-tTKcOMkwsXrilhgMxN-ibkNdacLPkkGep28r93ZWyc5Lj0R17Lgwevvv307X7Sjs_g0uSlldvUQ_eyB-_evP0JziG36FB7-Fig3aKG32SWoc241n24NiJ1Ii0Uwi_cKmeLFNkZO4N1Kh1lmq3lGdDfxCKCM4nfc4sjKE0BgmuwGEvnrdwUHkF64DoeGguZiWVSEg2FCh2jBZ8ieNrVgUmqlw_zO_iAGi1XsCg2Sgq4kQK1Q-C0c4i4FGPYBJqQMA0KVrUCmBri5V4aKgIlrVvYoXX0Dj82W9R8fTCWOLrcB9kWTB7SeqS1BMV9mzk4WXlbYAxSV8SpyamalAipvr1UCjYIhcOkUH1iICx8mq2vb-_WEM3v4VO0XEbz9f3PhPWpoVXc4YFJZrmSREw1Wa59SdKJ4Ner5eU1ZUQXs5vZ-p70w3S2nl-tVjC9XUIEi2i5nl3e3URLWNwtF7erqwHACoMosu-l3iaVO9TAGD2Xyh1qvic7HSlTMaR8h2SrQLkjXRwEHam_94w4uDJ6W1VI2LaFJGyWgDa-D44EjlPvczcaDvf7_WCri4Gx26E6kLjhZMDYd7nl24yHfs5xv-DiM98ic5-lznmwRCjuXORrT2bC6JX8A-HNY4jJcqPpzK98SSe7yNQ7xqQmqxMuEBbWZNLheD1hLD_wA_4eromDPxlAExOhTyEA0CZfHYAUfWD0qNRAp07v9jrh9OIRk8q45RbSCoUhq6Vb4pcCnX8WcySfmko7HPijPIfxeGOKmNtyMqlE_UAu8dhoVQLP89FR2AML6MFgcow0742sY9GbQqRPKqaWSTqEz2u-INx77jlpOCBqCaEHdR8aBod2R27Wywf1IX1Vx8djaqv21ij4Ngmp9PD9--pXYzrXNFoU3dVpoUW4v64Dg2rUUWFtE78BrDB1U18C1SfjRUyopl5iFfBRAMz5-QQ6bztPah41XfkKfrKCJ4Dnyp8vNtacXGzKeeTFqarIk001Tm3ZmhIOGHelFpBIHV-Us7hr8cuoUdoPJo2O2nqj463aGRlPTlC8Il3QSff4CoIij19HEKNCj1P9rykeqmc1Bv5B69sJ8fjuNHmn7s7_Nn1t038y6SFM22ZSnrCKscMsz3IakBlmG_pmYCwxJnxAdEXvxOcV-ws7GR5R" alt="Handler für die REST-Schnittstelle">
+</div>
+<div class="title">Figure 3. Handler für die REST-Schnittstelle</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_der_anwendungskern"><a class="anchor" href="#_der_anwendungskern"></a><a class="link" href="#_der_anwendungskern">1.3. Der Anwendungskern</a></h3>
+<div class="paragraph">
+<p>bla bla</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="https://kroki.io/plantuml/svg/eNqFVcty0zAU3fsrLmXRZAgJjxUhY8YtLU1p00ySDlN2inRta5AlI8nJGOifsePHuHKehAx0Vd3H0Tn3HiuncG7K2sos99A6b8OrFy_fwHMoLTrUHq4rtBlq-CyLAm3BtO7AleG543mlED4yq5ytcoxOo1OY5dJRp8ksK4D-TS0iOJP6JbPYh9pUwJkGi0I6b-W88gjSA9OiZywURsi0JhgKVVqgBZ8jeLrVgUmbw4fRPXxAjZYpGFdzJTncSI7aITC6OURcjgLmASY0XAYG0zUDuDSEy7w0JAIl5S0s0Do6w-vNFWu8DhhLGC3mA20LpgxtbeJag2J-19k9qnwnUIDUDXBuSlKTEyDpW0qlYI5QOUwr1SEEqoVPw9nV3f0MktEDfEomk2Q0e3hLtT43lMUFrpBkUSpJwKTJMu1rok4AtxeT8yvqSM6GN8PZA_GHy-FsdDGdwuXdBBIYJ5PZ8Pz-JpnA-H4yvptedAGmGEjR-v4127TZDg1QoGdSuZXmB1qnI2ZKQM4WSGvlKBfEiwEnS_1_Z4TBlNFZo5BqdyMkYsMUtPEdcERwkHtfun6vt1wuu5muusZmPbUCcb24G0VPSsuygoV5jnA5ZvwLyzByX6QuWVgJV8y5xK93MuRGT-U3hBf7JaYojSbPT31Nzq4K9SqKpKZVp4wjjK0ppMPBLI6icoVP6slVAr5HsLoATuibEbc0olb7JDhyc6SCXArcnoFLyxVGjzusecXzBmkTICaSdhtCG_gzqrk1AlUTaxC3oQ3kXvnJgilJfsdQtGa0H9qh7Ef_ANrpD6n3zDMYDFbM4pgqHqM9xg7tgpYCT983f2vqoXG6znS78WaQR3N_CjyWDRSOJv8Sdliw3cXBQDc1gwFZQHtrFMTxmjvAMxparTmkUouzeihaUvQhfNs6a_e3ptgO50fzclExivgIQusrPaf1u354RvbaE_qO6y1IfNjJLZKwVnBIfzuEI7cf9lWl-Luvs3m4_iHjEIgWggR0VPrcGIVMr1oeG0uQKRpXYVGSgQss5nRjFKXGhHezxdtw_evnwa9K9BtW_ybU" alt="Anwendungskern mit Mongoose">
+</div>
+<div class="title">Figure 4. Anwendungskern mit Mongoose</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interface_für_entities_und_das_mongoose_model"><a class="anchor" href="#_interface_für_entities_und_das_mongoose_model"></a><a class="link" href="#_interface_für_entities_und_das_mongoose_model">1.4. Interface für Entities und das Mongoose-Model</a></h3>
+<div class="paragraph">
+<p>bla bla</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="https://kroki.io/plantuml/svg/eNqFVU1v20YQvfNXTH2xjTpSmpzqGApoWbIVK5JASgmci7Ekh-Qiy11idylBLfLPeusfyyw_TIUJ2hv3zcybNx8ancNUlUfNs9zCxfQS3rz-4094BaVGg9LChwp1hhK-8KJAXTApr-BBxbmJ80ogPDItjK5y9M69c9jm3FCkyjQrgD5TjQhGpfbANF7DUVUQMwkaE26s5lFlEbgFJpOx0lCohKdHoiGokglqsDmCpawGVFo_7lc7uEeJmgnYVJHgMSx5jNIgMMrsEJNjApGjcQFzpyBsFcBcES-zXFERyMmuYY_a0BvedilavitQmjgumHWyNajShV2S1iMIZvvI0S8r7wtMgMuaOFclVZMTIdV34EJAhFAZTCtxRQzkC58X24f1bgv-6gk--0Hgr7ZP78jX5oqsuMeGiRel4ERMNWkm7ZGkE8HHWTB9oAj_drFcbJ9IP8wX29UsDGG-DsCHjR9sF9Pd0g9gsws263A2AgjRiaLx_Vdv03o61MAELePCNDU_0TgNKRMJ5GyPNNYY-Z50MYhppf5_ZsTBhJJZXSH59i0kYYsUpLJXYEjgTW5taa7H48PhMMpkNVI6G4uGxIwnI8_7rdQsK5jr5woPGxZ_ZRl65iuXJXMjiQUzxrftTBaxkiH_C-H1qYsqSiVp50N7pM2uCvHG88qGiaqXmVLUir89aMggjHMsmPfyPqP9RXFxeeZWsf4mU84TbB4Qcx0L9L71pFEV5yNKyGmEPe_ZnglOW4q3ZG7pTqGO9RTryF9IHPjxVMMLcOLaY6PRpKtnCHeV_Ij-IKi13jHLaqN7-NoO4U-oBcucN8qq6LzqygEeF6u75az-vAt200d_F977tw749hLRELQB8_X6-dMsWPr39fPWD_pnHcIl_UpTFmOv4uam6fZk0pL8Ds88eX8N7scqsw563hNECSPULRRrpGIT3w4NVZn82kBpUAyINZ0emQ09mXbBfc8ctq8rve5a1oB0krkZBGsWMftTcroOKeqIaTJESglksrWQ2qoglNqBLcRNJAdCc1VgSRs67AwdfZJzUKiptWT06f4cbxqXSVdOZelSECNdynoUNIx6A7Eoac8LdDqN56VKuSt6EV_Ch3__GfzHeN8BetYdTA==" alt="Entity, Model und Schema">
+</div>
+<div class="title">Figure 5. Entity, Model und Schema</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_programmierrichtlinien_für_typescript_und_javascript"><a class="anchor" href="#_programmierrichtlinien_für_typescript_und_javascript"></a><a class="link" href="#_programmierrichtlinien_für_typescript_und_javascript">2. Programmierrichtlinien für TypeScript und JavaScript</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Für die Programmierung mit <strong>TypeScript</strong> und <strong>JavaScript</strong> wird folgende
+Styleguides empfehlenswert:</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+<em>Microsoft</em>
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines" class="bare">https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<em>Angular</em>
+</td>
+<td class="hdlist2">
+<p><a href="https://angular.io/docs/ts/latest/guide/style-guide.html" class="bare">https://angular.io/docs/ts/latest/guide/style-guide.html</a></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<em>React</em>
+</td>
+<td class="hdlist2">
+<p><a href="https://github.com/airbnb/javascript/tree/master/react" class="bare">https://github.com/airbnb/javascript/tree/master/react</a></p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-11-29 19:41:32 +0100
+</div>
+</div>
+</body>
+</html>

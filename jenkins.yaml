@@ -1,0 +1,81 @@
+# Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# Aufruf:   docker-compose -f jenkins.yaml up
+#           docker-compose down
+#           docker-compose -f jenkins.yaml exec jenkins bash
+
+---
+# https://docs.docker.com/compose/compose-file
+# https://docs.docker.com/compose/compose-file/compose-file-v3
+version: "3.9"
+services:
+  jenkins-certs:
+    image: docker:20.10.5-dind
+    volumes:
+      - type: bind
+        source: C:/Zimmermann/volumes/jenkins/certs
+        target: /certs/client
+      - type: bind
+        source: C:/Zimmermann/volumes/jenkins/data
+        target: /var/jenkins_home
+    privileged: true
+    networks:
+      jenkins:
+        # alternative hostnames
+        aliases: ["docker"]
+    environment:
+      DOCKER_TLS_CERTDIR: /certs
+      TZ: Europe/Berlin
+    container_name: jenkins-cert
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+  jenkins:
+    image: jenkinsci/blueocean:1.24.5
+    ports:
+      - published: 9090
+        target: 8080
+    depends_on: ["jenkins-certs"]
+    volumes:
+      - type: bind
+        source: C:/Zimmermann/volumes/jenkins/certs
+        target: /certs/client
+        read_only: true
+      - type: bind
+        source: C:/Zimmermann/volumes/jenkins/data
+        target: /var/jenkins_home
+      - type: bind
+        source: .
+        # siehe "Repository URL" in der Job-Definition
+        target: /git-repository/beispiel
+        read_only: true
+    networks: ["jenkins"]
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_CERT_PATH: /certs/client
+      DOCKER_TLS_VERIFY: 1
+      TZ: Europe/Berlin
+    container_name: jenkins
+    hostname: jenkins
+    #deploy:
+    #  resources:
+    #    limits:
+    #      cpus: "2"
+    #      memory: 4096M
+networks:
+  jenkins: {}

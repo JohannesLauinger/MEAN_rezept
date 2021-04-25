@@ -1,0 +1,131 @@
+# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# #it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# kubectl logs mongodb-0 --namespace acme
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  replicas: 1
+  serviceName: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      serviceAccountName: acme-mongodb
+      containers:
+        - image: docker.io/mongo:4.4.4
+          name: mongo
+          args:
+            # https://docs.mongodb.com/manual/reference/configuration-file-settings-command-line-options-mapping
+            # Default-Werte: /data/db, /var/log/mongodb/mongodb.log
+            # CAVEAT: fuer ein ReplicaSet fuer MongoDB (nicht verwechseln mit ReplicaSet in Kubernetes) ist eine Pod-Initialisierung notwendig
+            - --auth
+            - --bind_ip_all
+            - --tlsMode=disabled
+            - --wiredTigerCacheSizeGB=0.3
+
+            #- --logpath=/var/tmp/mongod.log
+            #- --logRotate=rename
+
+            #- --replSet=replicaSet
+            #- --oplogSize=900
+            #
+            # kubectl exec mongodb-0 --stdin --tty --namespace acme  -- bash
+            #   mongo mongodb://localhost/admin --norc --username admin --password p --authenticationDatabase admin --eval "rs.initiate()"
+            #   mongo mongodb://localhost/admin?replicaSet=replicaSet --norc --username admin --password p --authenticationDatabase admin
+            #     use acme
+            #     db.createCollection("kunde")
+            #     exit
+            #   exit
+          envFrom:
+            - configMapRef:
+                name: mongodb-env
+          env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: password
+          ports:
+            - containerPort: 27017
+              name: mongod
+          securityContext:
+            runAsNonRoot: true
+            # mongodb
+            runAsUser: 999
+            # /tmp/mongodb-27017.sock
+            #readOnlyRootFilesystem: true
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          # https://medium.com/@xcoulon/storing-data-into-persistent-volumes-on-kubernetes-fb155da16666
+          volumeMounts:
+            - mountPath: /data/db
+              name: data-volume
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - mongo --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval db.adminCommand'("ping")'
+            # TCP-Socket oeffnen (und wieder schliessen)
+            #tcpSocket:
+            #  port: mongod
+            initialDelaySeconds: 120
+            timeoutSeconds: 20
+            periodSeconds: 120
+            failureThreshold: 2
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - mongo --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval db.adminCommand'("ping")'
+            initialDelaySeconds: 120
+            timeoutSeconds: 20
+            periodSeconds: 120
+            failureThreshold: 2
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-volume-mongodb-0
+  # "storage-constraint" fuer "Dynamic Volume Provisioning" https://kubernetes.io/docs/concepts/storage/dynamic-provisioning
+  volumeClaimTemplates:
+    - metadata:
+        name: data-volume
+        labels:
+          app: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+        # gleicher Name wie beim lokalen PersistentVolume
+        # TODO bei "hostpath" wird der Pfad fuer Windows aus dem PersistentVolume nicht verwendet
+        storageClassName: manual

@@ -1,0 +1,82 @@
+# Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+---
+apiVersion: apps/v1
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#deployment-v1-apps
+kind: Deployment
+metadata:
+  name: rezept
+  labels:
+    app: rezept
+spec:
+  # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#selector
+  selector:
+    matchLabels:
+      app: rezept
+  # Anzahl laufender Pods fuer das template
+  replicas: 1
+  # https://kubernetes.io/docs/concepts/workloads/pods/#pod-templates
+  template:
+    metadata:
+      labels:
+        app: rezept
+    # Spezifikation des Pod
+    spec:
+      serviceAccountName: acme-rezept
+      containers:
+        # https://kubernetes.io/docs/concepts/containers/images
+        - image: docker.io/juergenzimmermann/rezept:1.0.0
+          name: rezept
+          # https://kubernetes.io/docs/tasks/inject-data-application/define-interdependent-environment-variables
+          # https://opensource.com/article/19/6/introduction-kubernetes-secrets-and-configmaps
+          envFrom:
+            # https://kubernetes.io/docs/concepts/configuration/configmap
+            - configMapRef:
+                name: rezept-env
+          env:
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: password
+          ports:
+            - containerPort: 3000
+          resources:
+            # https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-resource-requests-and-limits
+            # Mindestanforderung an Ressourcen:   kubectl top pod
+            requests:
+              # CPU-Ressourcen werden in "millicores" definiert, z.B. "500m" oder "1"
+              cpu: 500m
+              # Memory-Resources werden i.a. als "mebibyte" Wert definiert
+              memory: 512Mi
+            # Begrenzung der Ressourcen
+            limits:
+              cpu: 600m
+              memory: 512Mi
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            # Logdatei in einem Verzeichnis durch Mounting
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: /var/log/node
+              name: log-rezept
+      volumes:
+        - name: log-rezept
+          # https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
+          hostPath:
+            path: /run/desktop/mnt/host/c/Zimmermann/volumes/rezept
+            type: Directory
