@@ -13,8 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# FIXME https://github.com/bazelbuild/rules_docker#nodejs_image
-
 # "Multi-stage Build" mit einem "distroless image"
 
 # https://github.com/GoogleContainerTools/distroless/blob/master/examples/nodejs/Dockerfile

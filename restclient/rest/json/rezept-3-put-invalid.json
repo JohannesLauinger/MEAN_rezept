@@ -3,12 +3,12 @@
   "name": "?!",
   "schwierigkeit": 5,
   "art": "HAUPTMAHLZEIT",
-  "koch": "IWI_VERLAG",
+  "koch": "FRANK_ROSIN",
   "preis": 9999,
   "schaerfe": 99,
   "verfuegbar": true,
   "datum": "12345-123-123",
-  "hinweis": "falsche-hinweis",
+  "hinweis": "falscher-hinweis",
   "homepage": "anyHomepage",
   "zutaten": ["JAVASCRIPT"]
 }

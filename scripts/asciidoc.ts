@@ -34,12 +34,12 @@ kroki.register(asciidoctor.Extensions);
 const options = {
     safe: 'safe',
     attributes: { linkcss: true },
-    base_dir: 'doc/entwicklerhandrezept',
+    base_dir: 'doc/entwicklerhandbuch',
     to_dir: 'html',
     mkdirs: true,
 };
 asciidoctor.convertFile(
-    join('doc', 'entwicklerhandrezept', 'entwicklerhandrezept.adoc'),
+    join('doc', 'entwicklerhandbuch', 'entwicklerhandbuch.adoc'),
     options,
 );
 console.log(
@@ -47,9 +47,9 @@ console.log(
         __dirname,
         '..',
         'doc',
-        'entwicklerhandrezept',
+        'entwicklerhandbuch',
         'html',
-        'entwicklerhandrezept.html',
+        'entwicklerhandbuch.html',
     )}`,
 );
 
