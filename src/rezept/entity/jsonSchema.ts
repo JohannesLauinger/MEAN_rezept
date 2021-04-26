@@ -4,7 +4,7 @@ export const MAX_RATING = 5;
 
 export const jsonSchema: GenericJsonSchema = {
     $schema: 'https://json-schema.org/draft/2019-09/schema',
-    $id: 'http://acme.com/rezept.json#',
+    $id: 'https://acme.com/buch.json#',
     title: 'rezept',
     description: 'Eigenschaften eines Rezeptes: Typen und Einschraenkungen',
     type: 'object',
