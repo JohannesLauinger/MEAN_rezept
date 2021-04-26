@@ -207,7 +207,7 @@ pipeline {
             steps {
               echo 'TODO: Docker-Image bauen'
               // Docker-Installation und laufender Docker-Daemon erforderlich
-              // sh 'docker build --tag juergenzimmermann/rezept:1.0.0 .'
+              // sh 'docker build --tag johanneslauinger/rezept:1.0.0 .'
             }
         }
 

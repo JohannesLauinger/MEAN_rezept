@@ -29,9 +29,9 @@ import {
     NameExists,
     VersionInvalid,
     VersionOutdated,
-} from './../service/errors';
+} from '../service/errors';
 import { RezeptService, RezeptServiceError } from '../service';
-import type { rezept } from './../entity';
+import type { rezept } from '../entity';
 import { logger } from '../../shared';
 
 const rezeptService = new RezeptService();

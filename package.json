@@ -1,5 +1,5 @@
 {
-  "name": "beispiel",
+  "name": "rezept",
   "version": "1.0.0",
   "description": "Beispiel",
   "main": "dist/server.js",

@@ -23,7 +23,7 @@
 
 /* eslint-disable max-classes-per-file */
 
-import type { ValidationErrorMsg } from './../entity';
+import type { ValidationErrorMsg } from '../entity';
 
 /**
  * Allgemeine Basisklasse für {@linkcode RezeptService}

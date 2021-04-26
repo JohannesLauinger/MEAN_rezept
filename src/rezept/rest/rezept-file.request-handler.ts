@@ -29,7 +29,7 @@ import {
     RezeptNotExists,
     FileNotFound,
     MultipleFiles,
-} from './../service';
+} from '../service';
 import { HttpStatus, logger } from '../../shared';
 import type { Request, Response } from 'express';
 import type { DownloadError } from '../service';

@@ -22,7 +22,7 @@
 
 import type { Request, Response } from 'express';
 import { RezeptService } from '../service/rezept.service';
-import { logger } from './../../shared/logger';
+import { logger } from '../../shared/logger';
 
 const rezeptService = new RezeptService();
 
