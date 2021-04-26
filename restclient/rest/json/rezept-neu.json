@@ -1,0 +1,19 @@
+{
+  "name": "Lasagne",
+  "schwierigkeit": 1,
+  "art": "HAUPTMAHLZEIT",
+  "koch": "JOHANN_LAFER",
+  "preis": 30.1,
+  "schaerfe": 0.5,
+  "verfuegbar": true,
+  "datum": "2020-02-01",
+  "hinweis": "Viel Käse!",
+  "homepage": "https://test.de/",
+  "zutaten": ["Käse", "Nudelplatten", "Tomatensoße"],
+  "gewuerze": [
+    {
+      "gewuerz1": "Salz",
+      "gewuerz2": "Pfeffer"
+    }
+  ]
+}

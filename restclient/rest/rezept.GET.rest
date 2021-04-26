@@ -46,8 +46,8 @@ https://{{host}}?name=a
 ### Suche mit nicht-vorhandenem Name
 https://{{host}}?name=xxx
 
-### Suche mit vorhandener ISBN
-https://{{host}}?hinweis=978-3897225831
+### Suche mit vorhandenem Hinweis
+https://{{host}}?hinweis=Wunderbar an heissen Sommertagen
 
 ### Suche mit vorhandenen Zutatenn
 https://{{host}}?javascript=true&typescript=true
